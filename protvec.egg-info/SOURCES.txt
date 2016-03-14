@@ -1,0 +1,8 @@
+setup.py
+protvec/__init__.py
+protvec/models.py
+protvec.egg-info/PKG-INFO
+protvec.egg-info/SOURCES.txt
+protvec.egg-info/dependency_links.txt
+protvec.egg-info/not-zip-safe
+protvec.egg-info/top_level.txt
