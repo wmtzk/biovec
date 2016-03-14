@@ -28,7 +28,7 @@ def generate_corpusfile(fname, n, out):
 
 class ProtVec(word2vec.Word2Vec):
 
-    def __init__(self, fname, n=3, size=100, out="corpus.txt",  sg=1, window=5, min_count=2, workers=3): # TBI: curpus=None
+    def __init__(self, fname=None, corpus=None, n=3, size=100, out="corpus.txt",  sg=1, window=5, min_count=2, workers=3):
         """
         fname: fasta file
         n: the number of n-gram
@@ -41,10 +41,13 @@ class ProtVec(word2vec.Word2Vec):
         self.size = size
         self.fname = fname
 
-        generate_corpusfile(fname, n, out)
-        curpus = word2vec.Text8Corpus(out)
+        if corpus is None:
+            if fname is None:
+                raise Exception("Either fname or corpus is needed!")
+            generate_corpusfile(fname, n, out)
+            corpus = word2vec.Text8Corpus(out)
 
-        word2vec.Word2Vec.__init__(self, curpus, size=size, sg=sg, window=window, min_count=min_count, workers=workers)
+        word2vec.Word2Vec.__init__(self, corpus, size=size, sg=sg, window=window, min_count=min_count, workers=workers)
 
     def to_vecs(self, seq):
         """
