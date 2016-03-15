@@ -6,7 +6,7 @@ def split_ngrams(seq, n):
     """
     'AGAMQSASM' => [['AGA', 'MQS', 'ASM'], ['GAM','QSA'], ['AMQ', 'SAS']]
     """
-    a, b, c = list(zip(*[iter(seq)]*n)), list(zip(*[iter(seq[1:])]*n)), list(zip(*[iter(seq[2:])]*n))
+    a, b, c = zip(*[iter(seq)]*n), zip(*[iter(seq[1:])]*n), zip(*[iter(seq[2:])]*n)
     str_ngrams = []
     for ngrams in [a,b,c]:
         x = []
@@ -60,8 +60,11 @@ class ProtVec(word2vec.Word2Vec):
         
         protvecs = []
         for ngrams in ngram_patterns:
-            # need to deal with error like query does not exist in the model
+            ngram_vecs = []
             for ngram in ngrams:
-                print(ngram)
-            protvecs.append(sum([self[ngram] for ngram in ngrams]))
+                try:
+                    ngram_vecs.append(self[ngram])
+                except:
+                    raise Exception("Model has never trained this n-gram: " + ngram)
+            protvecs.append(sum(ngram_vecs))
         return protvecs
