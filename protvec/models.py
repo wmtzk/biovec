@@ -17,6 +17,15 @@ def split_ngrams(seq, n):
 
 
 def generate_corpusfile(fname, n, out):
+    '''
+    Args:
+        fname: corpus file name
+        n: the number of chunks to split. In other words, "n" for "n-gram"
+        out: output corpus file path
+    Description:
+        Protvec uses word2vec inside, and it requires to load corpus file
+        to generate corpus.
+    '''
     f = open(out, "w")
     for r in SeqIO.parse(fname, "fasta"):
         ngram_patterns = split_ngrams(r.seq, n)
@@ -34,7 +43,7 @@ class ProtVec(word2vec.Word2Vec):
 
         fname: fasta file
         corpus: corpus object implemented by gensim
-        n: the number of n-gram
+        n: n of n-gram
         out: corpus output file path
         min_count: least appearance count in corpus. if the n-gram appear k times which is below min_count, the model does not remember the n-gram
         """
@@ -57,7 +66,7 @@ class ProtVec(word2vec.Word2Vec):
         e.g. 'AGAMQSASM' => [ array([  ... * 100 ], array([  ... * 100 ], array([  ... * 100 ] ]
         """
         ngram_patterns = split_ngrams(seq, self.n)
-        
+
         protvecs = []
         for ngrams in ngram_patterns:
             ngram_vecs = []
