@@ -1,5 +1,6 @@
 from gensim.models import word2vec
 from Bio import SeqIO
+import sys
 
 
 def split_ngrams(seq, n):
@@ -31,6 +32,7 @@ def generate_corpusfile(fname, n, out):
         ngram_patterns = split_ngrams(r.seq, n)
         for ngram_pattern in ngram_patterns:
             f.write(" ".join(ngram_pattern) + "\n")
+        sys.stdout.write(".")
 
     f.close()
 
@@ -55,9 +57,11 @@ class ProtVec(word2vec.Word2Vec):
         if corpus is None:
             if fname is None:
                 raise Exception("Either fname or corpus is needed!")
+            print 'Generate Corpus file from fasta file...'
             generate_corpusfile(fname, n, out)
             corpus = word2vec.Text8Corpus(out)
 
+        print '\nGenerate protvec model from corpus...'
         word2vec.Word2Vec.__init__(self, corpus, size=size, sg=sg, window=window, min_count=min_count, workers=workers)
 
     def to_vecs(self, seq):
