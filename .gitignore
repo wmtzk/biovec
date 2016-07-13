@@ -3,3 +3,4 @@ dist/
 build/
 protvec.egg-info
 *__pycache__
+*pyc
