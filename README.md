@@ -1,8 +1,10 @@
-ProtVec 
+BioVec
 --------------------------------------
 
-Paper: [ProtVec: A Continuous Distributed Representation of
+Paper: [BioVec: A Continuous Distributed Representation of
 Biological Sequences](http://arxiv.org/pdf/1503.05140v1.pdf)
+
+# ProtVec
 
 ### 概略
 通常生物情報は文字の配列で表現されるが、それをベクトルとして表現することによってより分析しやすく情報を収納することができるのではないかと提案されている。具体的な適用範囲としては、
