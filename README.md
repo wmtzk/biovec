@@ -23,7 +23,7 @@ classificationやpredictionはわかりやすい使い方だが、個人的に�
 * uniprotのswis-protの全データを収集する
 * 各配列を3つのn-gramのリストに変換する
 
-``` 
+```
 'AGAMQSASM' => [['AGA', 'MQS', 'ASM'], ['GAM','QSA'], ['AMQ', 'SAS']]
 ```
 
@@ -40,7 +40,7 @@ gensimではsgパラメータを1に設定するとskip-gramになる。
 
 ```
 seq = 'AGAMQSASM'
-n_grams = split_to_grams(seq) 
+n_grams = split_to_grams(seq)
 gram_vecs = [to_gram_vec(n_gram) for n_gram in n_grams]
 seq_vec = sum(gram_vecs)
 ```
@@ -64,10 +64,13 @@ t-SNEによって2次元もしくは3次元に次元圧縮を行った後、可�
 ### 使い方
 
 ```
-import protvec
-pv = protvec.ProtVec("some_fasta_file", out="output_corpusfile_path")
+import biovec
+
+pv = biovec.ProtVec("some_fasta_file.fasta", out="output_corpusfile_path.txt")
 pv["QAT"]
 pv.to_vecs("ATATQSQSMTEEL")
+
+pv2 = biovec.models.load_protvec('model_file_path')
 ```
 
 ### References
